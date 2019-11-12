@@ -100,3 +100,14 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+.coverage
+.coverage_html_report/
+
+*.db
+.vagrant
+
+# shit of vim
+.*.swo
+.*.swp
+.*.swa

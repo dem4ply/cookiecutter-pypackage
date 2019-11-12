@@ -47,21 +47,11 @@ clean-pyc: ## remove Python file artifacts
 clean-test: ## remove test and coverage artifacts
 	rm -fr .tox/
 	rm -f .coverage
-	rm -fr htmlcov/
+	rm -fr coverage_html_report/
 	rm -fr .pytest_cache
 
 lint: ## check style with flake8
 	flake8 {{ cookiecutter.project_slug }} tests
-
-test: ## run tests quickly with the default Python
-{%- if cookiecutter.use_pytest == 'y' %}
-	pytest
-{%- else %}
-	python setup.py test
-{%- endif %}
-
-test-all: ## run tests on every Python version with tox
-	tox
 
 coverage: ## check code coverage quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
@@ -71,7 +61,7 @@ coverage: ## check code coverage quickly with the default Python
 {%- endif %}
 	coverage report -m
 	coverage html
-	$(BROWSER) htmlcov/index.html
+	$(BROWSER) coverage_html_report/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.project_slug }}.rst
@@ -94,3 +84,26 @@ dist: clean ## builds source and wheel package
 
 install: clean ## install the package to the active Python's site-packages
 	python setup.py install
+
+report:
+	@coverage report
+	@coverage html
+
+test_unit:
+	@echo "Running tests"
+	@coverage run -m unittest discover -p "*.py" -s tests
+
+open_report_firefox:
+	@nohup firefox .coverage_html_report/index.html > /dev/null &
+
+pep8:
+	@echo "Running pep8 tests..."
+	@pep8 --statistics {{ cookiecutter.project_slug }} tests
+
+flakes:
+	@echo "Running flakes tests..."
+	@pyflakes {{ cookiecutter.project_slug }} tests
+
+test: test_unit report
+
+style_test: flakes pep8
