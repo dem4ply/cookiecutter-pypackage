@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-"""Console script for {{cookiecutter.project_slug}}."""
-
 {%- if cookiecutter.command_line_interface|lower == 'argparse' %}
 import argparse
 {%- endif %}

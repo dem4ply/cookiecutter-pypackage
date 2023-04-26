@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""Tests for `{{ cookiecutter.project_slug }}` package."""
-
 {% if cookiecutter.use_pytest == 'y' -%}
 import pytest
 {% else %}
@@ -12,7 +10,6 @@ import unittest
 from click.testing import CliRunner
 {%- endif %}
 
-from {{ cookiecutter.project_slug }} import {{ cookiecutter.project_slug }}
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
 from {{ cookiecutter.project_slug }} import cli
 {%- endif %}
@@ -50,17 +47,15 @@ def test_command_line_interface():
 {%- else %}
 
 
-class Test{{ cookiecutter.project_slug|title }}(unittest.TestCase):
-    """Tests for `{{ cookiecutter.project_slug }}` package."""
-
+class Test_{{ cookiecutter.project_slug|title }}(unittest.TestCase):
     def setUp(self):
-        """Set up test fixtures, if any."""
+        pass
 
     def tearDown(self):
-        """Tear down test fixtures, if any."""
+        pass
 
-    def test_000_something(self):
-        """Test something."""
+    def test_should_work(self):
+        pass
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
 
     def test_command_line_interface(self):
