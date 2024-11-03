@@ -10,3 +10,4 @@ jedi
 pipdeptree
 rope
 build
+ropevim
