@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+from chibi_command import Command
 
 PROJECT_DIRECTORY = os.path.realpath(os.path.curdir)
 
@@ -9,7 +10,6 @@ def remove_file(filepath):
 
 
 if __name__ == '__main__':
-
     if '{{ cookiecutter.create_author_file }}' != 'y':
         remove_file('AUTHORS.rst')
         remove_file('docs/authors.rst')
@@ -20,3 +20,7 @@ if __name__ == '__main__':
 
     if 'Not open source' == '{{ cookiecutter.open_source_license }}':
         remove_file('LICENSE')
+
+    Command( 'virtualenv', 'venv' ).run()
+    Command( 'venv/bin/pip', 'install', '-e', '.' ).run()
+    Command( 'venv/bin/pip', 'install', '-r', 'requirements_dev.txt' ).run()
