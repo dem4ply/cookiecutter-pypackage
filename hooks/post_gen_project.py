@@ -30,7 +30,7 @@ if __name__ == '__main__':
     Command( 'venv/bin/pip', 'install', '-e', '.' ).run()
     Command( 'venv/bin/pip', 'install', '-r', 'requirements_dev.txt' ).run()
 
-    if '{{ cookiecutter.reate_github_repo }}' == 'y':
+    if '{{ cookiecutter.create_github_repo }}' == 'y':
         api = Github_api()
         api.login()
         response = api.me.repos.create(
