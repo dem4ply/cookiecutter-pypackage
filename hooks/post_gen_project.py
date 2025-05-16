@@ -30,25 +30,26 @@ if __name__ == '__main__':
     Command( 'venv/bin/pip', 'install', '-e', '.' ).run()
     Command( 'venv/bin/pip', 'install', '-r', 'requirements_dev.txt' ).run()
 
-    api = Github_api()
-    api.login()
-    response = api.me.repos.create(
-        name='{{ cookiecutter.project_slug }}',
-        description=(
-            '{{ cookiecutter.project_short_description }}' ),
-        private=github_private,
-    )
-    if not response.ok:
-        import pdb
-        pdb.set_trace()
-        raise NotImplementedError(
-            "no esta implementado el manejo de error de github" )
-    ssh_url = response.native.ssh_url
+    if '{{ cookiecutter.reate_github_repo }}' == 'y':
+        api = Github_api()
+        api.login()
+        response = api.me.repos.create(
+            name='{{ cookiecutter.project_slug }}',
+            description=(
+                '{{ cookiecutter.project_short_description }}' ),
+            private=github_private,
+        )
+        if not response.ok:
+            import pdb
+            pdb.set_trace()
+            raise NotImplementedError(
+                "no esta implementado el manejo de error de github" )
+        ssh_url = response.native.ssh_url
 
-    repo = Git( PROJECT_DIRECTORY )
-    repo.init()
-    for file in repo.status.untrack:
-        file.add()
-    repo.commit( "iniciando repo {{ cookiecutter.project_name }}" )
-    repo.remote.append( 'origin', ssh_url )
-    repo.push( 'origin', 'master', set_upstream=True )
+        repo = Git( PROJECT_DIRECTORY )
+        repo.init()
+        for file in repo.status.untrack:
+            file.add()
+        repo.commit( "iniciando repo {{ cookiecutter.project_name }}" )
+        repo.remote.append( 'origin', ssh_url )
+        repo.push( 'origin', 'master', set_upstream=True )
