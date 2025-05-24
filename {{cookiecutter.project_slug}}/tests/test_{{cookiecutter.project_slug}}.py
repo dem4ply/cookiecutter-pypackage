@@ -4,11 +4,11 @@ import unittest
 
 
 class Test_{{ cookiecutter.project_slug }}( unittest.TestCase ):
-    def setUp(self):
+    def setUp( self ):
         pass
 
-    def tearDown(self):
+    def tearDown( self ):
         pass
 
-    def test_should_work(self):
+    def test_should_work( self ):
         pass
